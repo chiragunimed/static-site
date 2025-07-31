@@ -1,12 +1,30 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Welcome to My Static Site</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Upload Badge to LinkedIn</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <h1>Hello from Render!</h1>
-  <button onclick="sayHi()">Click Me</button>
+  <div id="container">
+    <h2>Welcome!</h2>
+    <p>Your email: <span id="email">Loading...</span></p>
+
+    <!-- Show the badge image -->
+    <div>
+       <img src="/base_badge.png" alt="Base Badge" style="max-width:100%; height:auto; margin-bottom: 20px;" />
+    </div>
+
+    <!-- Upload button -->
+    <button id="linkedin-button">Upload Badge to LinkedIn Profile</button>
+
+    <!-- Disclaimer -->
+    <p style="margin-top: 20px; font-size: 0.9rem; color: #555;">
+      By clicking the button and authorizing, the above badge image will be posted to your LinkedIn profile, combined with your LinkedIn display picture.
+    </p>
+  </div>
+
   <script src="script.js"></script>
 </body>
 </html>
