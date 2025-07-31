@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Authorize LinkedIn Posting</title>
   <style>
     body {
@@ -10,9 +10,10 @@
       padding: 40px;
       background: #f9f9f9;
     }
-    img {
-      max-width: 100%;
-      border-radius: 12px;
+    .email {
+      font-weight: bold;
+      color: #333;
+      margin-top: 10px;
     }
     .disclaimer {
       margin-top: 20px;
@@ -33,8 +34,11 @@
 </head>
 <body>
 
-  <img src="base_badge.png" alt="Your Event Badge" />
-  
+  <h2>Welcome!</h2>
+  <div class="email">Your email: <span id="emailPlaceholder">Loading...</span></div>
+
+  <img src="base_badge.png" alt="Your Event Badge" style="max-width: 100%; border-radius: 12px; margin-top: 20px;" />
+
   <div class="disclaimer">
     By clicking the button below, you agree to let us use your LinkedIn profile photo to overlay it on your badge and post it to your profile.<br>
     <strong>Please do not proceed if you do not authorize this action.</strong>
@@ -43,15 +47,26 @@
   <button class="button" id="authBtn">Post Badge to LinkedIn</button>
 
   <script>
-    const params = new URLSearchParams(window.location.search);
-    const email = params.get("email");
+    document.addEventListener("DOMContentLoaded", () => {
+      const params = new URLSearchParams(window.location.search);
+      const email = params.get("email");
 
-    document.getElementById("authBtn").addEventListener("click", () => {
+      // Show email in page
+      const placeholder = document.getElementById("emailPlaceholder");
       if (email) {
-        window.location.href = `https://c22ba932a90c.ngrok-free.app/auth/linkedin?email=${encodeURIComponent(email)}`;
+        placeholder.textContent = email;
       } else {
-        alert("Email not found in URL. Please access this link from your email.");
+        placeholder.textContent = "Missing";
       }
+
+      // Handle button click
+      document.getElementById("authBtn").addEventListener("click", () => {
+        if (email) {
+          window.location.href = `https://c22ba932a90c.ngrok-free.app/auth/linkedin?email=${encodeURIComponent(email)}`;
+        } else {
+          alert("Email not found in URL. Please access this link from your email.");
+        }
+      });
     });
   </script>
 </body>
