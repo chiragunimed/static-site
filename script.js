@@ -1,20 +1,40 @@
-function getEmailFromUrl() {
-  const params = new URLSearchParams(window.location.search);
-  return params.get("email") || "No email provided";
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>LinkedIn Badge</title>
+</head>
+<body style="font-family: Arial, sans-serif; max-width:600px; margin:auto; padding:20px; text-align:center;">
 
-function init() {
-  const emailSpan = document.getElementById("email");
-  const email = getEmailFromUrl();
-  emailSpan.textContent = email;
+  <h2>Welcome!</h2>
+  <p>Your email: <span id="email"></span></p>
+  <button id="linkedin-button" style="padding:10px 20px; font-size:16px; cursor:pointer;">
+    Post Badge on LinkedIn
+  </button>
 
-  // 👇 Redirect to your backend instead of LinkedIn directly
-  const backendUrl = "https://c22ba932a90c.ngrok-free.app/auth/linkedin/callback"; // ⬅️ Replace this with your real ngrok URL
+  <script>
+    // 1. Get email from URL query string
+    function getEmailFromUrl() {
+      const params = new URLSearchParams(window.location.search);
+      return params.get("email") || "";
+    }
 
-  const button = document.getElementById("linkedin-button");
-  button.addEventListener("click", () => {
-    window.location.href = `${backendUrl}/auth/linkedin?email=${encodeURIComponent(email)}`;
-  });
-}
+    // 2. On load, show email and add click handler to button
+    window.onload = () => {
+      const email = getEmailFromUrl();
+      document.getElementById("email").textContent = email;
 
-window.onload = init;
+      document.getElementById("linkedin-button").addEventListener("click", () => {
+        if (!email) {
+          alert("Email not found!");
+          return;
+        }
+        // Redirect to backend OAuth start endpoint with email
+        const backendOAuthUrl = `https://c22ba932a90c.ngrok-free.app/auth/linkedin?email=${encodeURIComponent(email)}`;
+        window.location.href = backendOAuthUrl;
+      });
+    };
+  </script>
+
+</body>
+</html>
