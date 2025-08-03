@@ -15,6 +15,14 @@
       color: #333;
       margin-top: 10px;
     }
+     .scale-container {
+      transform: scale(0.5); /* Scale down to 50% of original */
+      transform-origin: top center;
+      width: 200%; /* Compensates for scaling */
+      padding: 80px 0;
+      box-sizing: border-box;
+      text-align: center;
+     }
     .disclaimer {
       margin-top: 20px;
       font-size: 14px;
@@ -40,7 +48,7 @@
   <img src="base_badge.png" alt="Your Event Badge" style="max-width: 100%; border-radius: 12px; margin-top: 20px;" />
 
   <div class="disclaimer">
-    By clicking the button below, you agree to let us use your LinkedIn profile photo to overlay it on your badge and post it to your profile.<br>
+    By clicking the button below, you agree to let us use your LinkedIn 1 photo to overlay it on your badge and post it to your profile.<br>
     <strong>Please do not proceed if you do not authorize this action.</strong>
   </div>
 
