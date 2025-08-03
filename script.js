@@ -51,7 +51,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const params = new URLSearchParams(window.location.search);
   const email = params.get("email");
 
-  console.log("Extracted email:", email); // Debug in browser
+  console.log("Extracted email:", email); // Debug in browser console
 
   const placeholder = document.getElementById("emailPlaceholder");
   placeholder.textContent = email || "Missing";
@@ -60,9 +60,11 @@ document.addEventListener("DOMContentLoaded", () => {
     if (email) {
       window.location.href = `https://c22ba932a90c.ngrok-free.app/auth/linkedin?email=${encodeURIComponent(email)}`;
     } else {
-        }
-      });
-    });
-  </script>
+      alert("Email not found in URL. Please open this page from your email.");
+    }
+  });
+});
+</script>
+
 </body>
 </html>
