@@ -2,26 +2,81 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Upload Badge to LinkedIn</title>
-  <link rel="stylesheet" href="style.css" />
+  <title>Authorize LinkedIn Posting</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 40px;
+      background: #f9f9f9;
+    }
+    .email {
+      font-weight: bold;
+      color: #333;
+      margin-top: 10px;
+    }
+    .disclaimer {
+      margin-top: 20px;
+      font-size: 14px;
+      color: #666;
+    }
+    .button {
+      margin-top: 30px;
+      padding: 12px 24px;
+      font-size: 16px;
+      background: #0073b1;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body>
-  <div id="container">
-    <h2>Welcome!</h2>
-    <p>Your email: <span id="emailPlaceholder">Loading...</span></p>
 
-    <div>
-      <img src="/base_badge.png" alt="Base Badge" style="max-width:100%; height:auto; margin-bottom: 20px;" />
-    </div>
+  <h2>Welcome!</h2>
+  <div class="email">Your email: <span id="emailPlaceholder">Loading...</span></div>
 
-    <button id="authBtn">Upload Badge to LinkedIn Profile</button>
+  <img src="base_badge.png" alt="Your Event Badge" style="max-width: 100%; border-radius: 12px; margin-top: 20px;" />
 
-    <p style="margin-top: 20px; font-size: 0.9rem; color: #555;">
-      By clicking the button and authorizing, the above badge image will be posted to your LinkedIn profile, combined with your LinkedIn display picture.
-    </p>
+  <div class="disclaimer">
+    By clicking the button below, U agree to let us use your LinkedIn profile photo to overlay it on your badge and post it to your profile.<br>
+    <strong>Please do not proceed if you do not authorize this action.</strong>
   </div>
 
-  <script src="script.js"></script>
+  <button class="button" id="authBtn">Post Badge to LinkedIn</button>
+
+  <script>
+    // Manual function to parse email from URL query string
+    function getEmailFromUrl() {
+      const query = window.location.search.substring(1); // remove '?'
+      const vars = query.split("&");
+      for (let i = 0; i < vars.length; i++) {
+        const pair = vars[i].split("=");
+        if (decodeURIComponent(pair[0]) === "email") {
+          return decodeURIComponent(pair[1]);
+        }
+      }
+      return null;
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const email = getEmailFromUrl();
+
+      console.log("Extracted email (manual parse):", email); // Debug in console
+
+      const placeholder = document.getElementById("emailPlaceholder");
+      placeholder.textContent = email || "Missing";
+
+      document.getElementById("authBtn").addEventListener("click", () => {
+        if (email) {
+          window.location.href = `https://c22ba932a90c.ngrok-free.app/auth/linkedin?email=${encodeURIComponent(email)}`;
+        } else {
+          alert("Email not found in URL. Please open this page from your email.");
+        }
+      });
+    });
+  </script>
+
 </body>
 </html>
