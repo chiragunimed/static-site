@@ -47,24 +47,19 @@
   <button class="button" id="authBtn">Post Badge to LinkedIn</button>
 
   <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const params = new URLSearchParams(window.location.search);
-      const email = params.get("email");
+document.addEventListener("DOMContentLoaded", () => {
+  const params = new URLSearchParams(window.location.search);
+  const email = params.get("email");
 
-      // Show email in page
-      const placeholder = document.getElementById("emailPlaceholder");
-      if (email) {
-        placeholder.textContent = email;
-      } else {
-        placeholder.textContent = "Missing";
-      }
+  console.log("Extracted email:", email); // Debug in browser
 
-      // Handle button click
-      document.getElementById("authBtn").addEventListener("click", () => {
-        if (email) {
-          window.location.href = `https://c22ba932a90c.ngrok-free.app/auth/linkedin?email=${encodeURIComponent(email)}`;
-        } else {
-          alert("Email not found in URL. Please access this link from your email.");
+  const placeholder = document.getElementById("emailPlaceholder");
+  placeholder.textContent = email || "Missing";
+
+  document.getElementById("authBtn").addEventListener("click", () => {
+    if (email) {
+      window.location.href = `https://c22ba932a90c.ngrok-free.app/auth/linkedin?email=${encodeURIComponent(email)}`;
+    } else {
         }
       });
     });
